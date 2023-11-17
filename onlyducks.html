@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyDucks</title>
+    <script src="./check.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex flex-col justify-center items-center h-[100vh] w-full overflow-hidden bg-neutral-900">
+    <a href="./index.html" class="absolute text-white text-2xl top-4 left-4">&#11013 Show me a DUCK!</a>
+    <div id="passwordContainer" class="min-w-max m-auto z-50">
+        <p class="text-9xl text-center h-fit mb-8">🔞</p>
+        <input id="passwordInput" placeholder="PASSWORD" type="password" class="text-center relative py-2 px-4 w-full box-border rounded-full text-lg" />
+        <button onclick="checkPassword()" class="cursor-not-allowed w-full box-border py-2 bg-red-600 border-4 font-semibold rounded-full border-red-800 text-white text-2xl mt-4 transition-all hover:border-red-700 hover:bg-red-500 active:bg-red-800 active:border-red-900 active:scale-95 hover:scale-105">🔐 Decrypt 🔐</button>
+        <div class="relative w-full flex flex-col items-center justify-center">
+            <a id="forgotPass" class="w-max mt-4 text-neutral-600 hover:text-neutral-500 transition-all text-center cursor-help">I forgot my password</a>
+            <p id="tooltip" class="absolute hidden text-white bg-black w-max -bottom-8">Which sound does a duck make?</p>
+        </div>
+    </div>
+    <div id="imageCon" class=" flex flex-col items-center justify-center" >
+        <img id="secretImage" class="w-full h-fit box-border p-12 hidden" src="" />
+        <p id="secretSubtitle" class="text-neutral-600 text-2xl"></p>
+    </div>
+</body>
+<script>
+    let tooltipShown = false;
+
+    window.onload = document.getElementById('forgotPass').addEventListener('click', showTooltip);
+
+    function showTooltip() {
+        if(!tooltipShown) {
+            document.getElementById('tooltip').style.display = 'block';
+            tooltipShown = true;
+        } else {
+            document.getElementById('tooltip').style.display = 'none';
+            tooltipShown = false;
+        }
+    }
+</script>
+</html>
