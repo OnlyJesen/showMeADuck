@@ -22,28 +22,33 @@
             })
         })
     </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="flex flex-col justify-center items-center h-[100vh] w-full overflow-hidden bg-neutral-900">
     <canvas id="confetti" class="absolute -z-30 w-full h-full top-0 left-0 pointer-events-none"></canvas>
     <div id="duckImageContainer" class="aspect-square h-96 w-96 bg-neutral-800 rounded-lg flex justify-center items-center relative overflow-hidden pointer-events-none">
         <img id="duckimg" class="h-full mx-auto z-10 opacity-0" src="" alt="duck" />
         <div class="w-full h-full absolute flex items-center justify-center flex-col">
-            <img id="loadingIMG" class="h-32 hidden opacity-30 mb-8" src="https://i.gifer.com/embedded/download/XOsX.gif" alt="loadingDuck" />
+            <img id="loadingIMG" class="h-32 hidden opacity-30 mb-8" src="XOsX.gif" alt="loadingDuck" />
             <p id="noduck" class="text-white text-xl opacity-30 z-5 block">no duck yet 😔</p>
         </div>
     </div>
-    <button onclick="getDuck()" class="px-4 py-2 bg-green-600 border-4 rounded-full border-green-800 text-white font-medium text-2xl mt-8" style="font-family: Oswald;">SHOW ME A <span class="underline">DUCK!</span></button>
+    <div class="w-full flex items-center justify-center">
+        <button id="duckbutton" class="px-4 py-2 bg-green-600 border-4 rounded-full border-green-800 text-white font-medium text-2xl mt-8 transition-all hover:border-green-700 hover:bg-green-500 active:bg-green-800 active:border-green-900 active:scale-95" style="font-family: Oswald;">SHOW ME A <span class="underline">DUCK!</span></button>
+    </div>
     <script>
-        let imgLoading = false;
+        window.onload = document.getElementById("duckbutton").addEventListener('click', getDuck);
 
         function getDuck() {
+            document.getElementById("duckbutton").removeEventListener('click', getDuck);
+            document.getElementById("duckbutton").style.filter = "grayscale(100%)"
+            document.getElementById("duckbutton").style.opacity = "70%"
+            document.getElementById("duckbutton").style.cursor = "not-allowed"
             document.getElementById("duckimg").src = '';
             document.getElementById("duckimg").style.opacity = '0%'
-
             document.getElementById('noduck').innerText = "Loading a duck image🥰"
             document.getElementById('noduck').style.opacity = '30%';
             document.getElementById('loadingIMG').style.display = 'block';
-
             document.getElementById("duckimg").src = `https://random-d.uk/api/${Math.floor(Math.random() * 130) + 1}.jpg`
             
             setTimeout(() => {
@@ -58,10 +63,16 @@
                     particleCount: 100,
                     spread: 160
                 });
+                document.getElementById("duckbutton").addEventListener('click', getDuck);
+                document.getElementById("duckbutton").style.filter = ""
+                document.getElementById("duckbutton").style.opacity = "100%"
+                document.getElementById("duckbutton").style.cursor = "pointer"
             }, 2000)
-            
         }
     </script>
-    <footer class="absolute bottom-5 default w-full text-center text-white opacity-30 hover:opacity-100 transition-all cursor-default">Made with ❤️ by Jesen</footer>
+    <footer class="absolute bottom-5 flex items-center justify-center flex-col">
+        <a href="./reviews.html" class="text-white text-2xl bg-neutral-800 px-8 py-2 rounded-full align-middle border-4 border-neutral-700">Reviews</a>
+        <p class="mt-4 text-white opacity-10 text-xl">Made with ♥ by Jesen</p>
+    </footer>
 </body>
 </html>
