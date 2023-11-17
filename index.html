@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show me a DUCK!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet">
+    <script src="browser.js"></script>
+    <script >
+        window.addEventListener("load", (event) => {
+            new cursoreffects.fairyDustCursor({
+                colors: ["#ff0000", "#00ff00", "#0000ff"],
+            })
+
+            new cursoreffects.rainbowCursor({
+                length: 10,
+                colors: ["red", "blue", "pink"],
+                size: 4,
+            })
+        })
+    </script>
+</head>
+<body class="flex flex-col justify-center items-center h-[100vh] w-full overflow-hidden bg-neutral-900">
+    <canvas id="confetti" class="absolute -z-30 w-full h-full top-0 left-0 pointer-events-none"></canvas>
+    <div id="duckImageContainer" class="aspect-square h-96 w-96 bg-neutral-800 rounded-lg flex justify-center items-center relative overflow-hidden pointer-events-none">
+        <img id="duckimg" class="h-full mx-auto z-10 opacity-0" src="" alt="duck" />
+        <div class="w-full h-full absolute flex items-center justify-center flex-col">
+            <img id="loadingIMG" class="h-32 hidden opacity-30 mb-8" src="https://i.gifer.com/embedded/download/XOsX.gif" alt="loadingDuck" />
+            <p id="noduck" class="text-white text-xl opacity-30 z-5 block">no duck yet 😔</p>
+        </div>
+    </div>
+    <button onclick="getDuck()" class="px-4 py-2 bg-green-600 border-4 rounded-full border-green-800 text-white font-medium text-2xl mt-8" style="font-family: Oswald;">SHOW ME A <span class="underline">DUCK!</span></button>
+    <script>
+        let imgLoading = false;
+
+        function getDuck() {
+            document.getElementById("duckimg").src = '';
+            document.getElementById("duckimg").style.opacity = '0%'
+
+            document.getElementById('noduck').innerText = "Loading a duck image🥰"
+            document.getElementById('noduck').style.opacity = '30%';
+            document.getElementById('loadingIMG').style.display = 'block';
+
+            document.getElementById("duckimg").src = `https://random-d.uk/api/${Math.floor(Math.random() * 130) + 1}.jpg`
+            
+            setTimeout(() => {
+                document.getElementById('duckimg').style.opacity = '100%';
+                document.getElementById('noduck').style.opacity = '0%';
+                document.getElementById('noduck').style.display = 'hidden';
+                var myConfetti = confetti.create(document.getElementById('confetti'), {
+                    resize: true,
+                    useWorker: true
+                });
+                myConfetti({
+                    particleCount: 100,
+                    spread: 160
+                });
+            }, 2000)
+            
+        }
+    </script>
+    <footer class="absolute bottom-5 default w-full text-center text-white opacity-30 hover:opacity-100 transition-all cursor-default">Made with ❤️ by Jesen</footer>
+</body>
+</html>
